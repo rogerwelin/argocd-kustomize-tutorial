@@ -11,8 +11,11 @@ import (
 	"time"
 )
 
+var Version = "dev"
+
 type Message struct {
-	Msg string `json:"msg"`
+	Msg     string `json:"msg"`
+	Version string `json:"version"`
 }
 
 func pingHandler(w http.ResponseWriter, r *http.Request) {
@@ -21,7 +24,7 @@ func pingHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func helloArgo(w http.ResponseWriter, r *http.Request) {
-	msg := &Message{Msg: "hello argocd"}
+	msg := &Message{Msg: "Hello ArgoCD!", Version: Version}
 	out, err := json.Marshal(msg)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
