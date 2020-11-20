@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitops-argocd
+  labels:
+    app: gitops-argocd
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gitops-argocd
+  template:
+    metadata:
+      labels:
+        app: gitops-argocd
+    spec:
+      containers:
+      - name: gitops-argocd
+        image: rogerw/gitops-argocd:REPLACEME
+        ports:
+        - containerPort: 8080
