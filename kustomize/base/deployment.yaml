@@ -20,3 +20,15 @@ spec:
         image: rogerw/gitops-argocd:REPLACEME
         ports:
         - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 2
+        ReadinessProbe:
+          httpGet:
+            path: /ping
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 2
