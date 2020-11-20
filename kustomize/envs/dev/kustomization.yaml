@@ -4,6 +4,9 @@ kind: Kustomization
 bases:
 - ../../base
 
+patchesStrategicMerge:
+- deployment-patch.yaml
+
 images:
 - name: rogerw/gitops-argocd
   newTag: v1.0.0

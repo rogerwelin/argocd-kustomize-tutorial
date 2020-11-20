@@ -6,7 +6,7 @@ metadata:
   labels:
     app: gitops-argocd
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: gitops-argocd

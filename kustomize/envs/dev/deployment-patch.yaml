@@ -1,0 +1,10 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitops-argocd
+  labels:
+    app: gitops-argocd
+spec:
+  replicas: 2
+
