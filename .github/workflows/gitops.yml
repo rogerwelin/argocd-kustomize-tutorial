@@ -51,6 +51,17 @@ jobs:
        cd kustomize/envs/dev/
        kustomize edit set image gitops-argocd=$DOCKER_USERNAME/gitops-argocd:${{ github.sha }}
 
+    - name: Commit files
+      run: |
+        git config --local user.email "github-actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git commit -am "bump image"
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
   deploy-test:
     name: Deploy-test
     runs-on: ubuntu-latest
