@@ -35,4 +35,46 @@ jobs:
         build-args: |
           version=${{ github.sha }}
 
+  deploy-dev:
+    name: Deploy-dev
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Setup Kustomize
+      uses: imranismail/setup-kustomize@v1
+      with:
+        kustomize-version: "3.8.7"
+
+    - name: Update Kubernetes manifests
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      run: |
+       cd kustomize/envs/dev/
+       kustomize edit set image hello-gitops=$DOCKER_USERNAME/hello-gitops:${{ github.sha }}
+
+  deploy-test:
+    name: Deploy-test
+    runs-on: ubuntu-latest
+    needs: deploy-dev
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Setup Kustomize
+      uses: imranismail/setup-kustomize@v1
+      with:
+        kustomize-version: "3.8.7"
+
+    - name: Update Kubernetes manifests
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      run: |
+       cd kustomize/envs/test/
+       kustomize edit set image hello-gitops=$DOCKER_USERNAME/hello-gitops:${{ github.sha }}
+
 
