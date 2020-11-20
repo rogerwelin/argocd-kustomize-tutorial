@@ -55,7 +55,7 @@ jobs:
       run: |
         git config --local user.email "github-actions@github.com"
         git config --local user.name "GitHub Actions"
-        git commit -am "bump image"
+        git commit -am "bump dev env image"
 
     - name: Push changes
       uses: ad-m/github-push-action@master
@@ -76,6 +76,10 @@ jobs:
       with:
         kustomize-version: "3.8.7"
 
+    - name: Fetch changes
+      run: |
+        git pull origin master
+
     - name: Update Kubernetes manifests
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -87,7 +91,7 @@ jobs:
       run: |
         git config --local user.email "github-actions@github.com"
         git config --local user.name "GitHub Actions"
-        git commit -am "bump image"
+        git commit -am "bump test env image"
 
     - name: Push changes
       uses: ad-m/github-push-action@master
