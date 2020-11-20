@@ -8,6 +8,6 @@ patchesStrategicMerge:
 - deployment-patch.yaml
 
 images:
-- name: rogerw/gitops-argocd
+- name: gitops-argocd
   newTag: b5388f4148fd3ca6ec84d5367896b527e3036908
 
